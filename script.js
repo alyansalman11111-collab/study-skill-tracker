@@ -1,5 +1,10 @@
 let tasks = [];
 
+function saveTasks()
+{
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 function addSkill()
 {
     let input = document.getElementById("addSkill");
@@ -9,20 +14,25 @@ function addSkill()
         return;
 
     tasks.push({id: Date.now(), title: skill, completed: false});
-
     input.value = "";
 
+    saveTasks();
     renderTasks();
 }
 
 function deleteTask(id)
 {
     tasks = tasks.filter(task => task.id !== id)
+    
+    saveTasks();
+    renderTasks();
 }
 
 function toggleTask(id)
 {
     tasks.forEach(task => {if(task.id == id){ task.completed = !task.completed;}})
+    
+    saveTasks();
     renderTasks();
 }
 
@@ -62,4 +72,12 @@ function renderTasks()
 
         list.appendChild(li);
     });
+}
+
+let savedTasks = localStorage.getItem("tasks");
+
+if(savedTasks)
+{
+    tasks = JSON.parse(savedTasks);
+    renderTasks();
 }
