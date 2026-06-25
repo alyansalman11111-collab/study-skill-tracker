@@ -1,4 +1,11 @@
 let tasks = [];
+let currentFilter = "all";
+
+function setFilter(filter)
+{
+    currentFilter = filter;
+    renderTasks();
+}
 
 function saveTasks()
 {
@@ -18,6 +25,7 @@ function addSkill()
 
     saveTasks();
     renderTasks();
+    updateStats();
 }
 
 function deleteTask(id)
@@ -26,6 +34,7 @@ function deleteTask(id)
     
     saveTasks();
     renderTasks();
+    updateStats();
 }
 
 function toggleTask(id)
@@ -34,21 +43,44 @@ function toggleTask(id)
     
     saveTasks();
     renderTasks();
+    updateStats();
+}
+
+function updateStats()
+{
+    let total = tasks.length;
+    let completed = tasks.filter(task => task.completed).length;
+    let remaining = total - completed;
+
+    document.getElementById("totalTasks").textContent = "Total: " + total;
+    document.getElementById("completedTasks").textContent = "Done: " + completed;
+    document.getElementById("remainingTasks").textContent = "Remaining: " + remaining;
 }
 
 function renderTasks()
 {
+    let filteredTasks = tasks;
+    
+    if(currentFilter === "completed")
+    {
+        filteredTasks = tasks.filter(task => task.completed);
+    }
+
+    else if(currentFilter === "active")
+    {
+        filteredTasks = tasks.filter(task => !task.completed);
+    }
+    
     let list = document.getElementById("skillList");
     list.innerHTML = "";
 
-    tasks.forEach(task => 
+    filteredTasks.forEach(task => 
     {
         let li = document.createElement("li");
         let checkbox = document.createElement("input");
 
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
-
         checkbox.onclick = function () { toggleTask(task.id); };
 
         let taskText = document.createElement("span");
@@ -61,9 +93,9 @@ function renderTasks()
         }
 
         let deleteButton = document.createElement("button");
+        
         deleteButton.textContent = "X";
         deleteButton.classList.add("delete-btn")
-
         deleteButton.onclick = function() {deleteTask(task.id);};
 
         li.appendChild(checkbox);
@@ -79,5 +111,7 @@ let savedTasks = localStorage.getItem("tasks");
 if(savedTasks)
 {
     tasks = JSON.parse(savedTasks);
-    renderTasks();
 }
+
+renderTasks();
+updateStats();
