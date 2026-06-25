@@ -3,23 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>
-        Study and Skill Tracker
-    </title>
-    <link rel="stylesheet" href="style.css?v=1">
+    <title>Study Skill Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>
-        Study and Skill Tracker
-    </h1>
 
-    <input type="text"  id="addSkill" placeholder="Enter a skill... ">
-    <button onclick="addSkill()">Add</button>
+    <div class="container">
+        <h1>📚 Study Skill Tracker</h1>
 
-    <ul id="skillList"></ul>
+        <div id="stats">
+        <div id="totalTasks">Total: 0</div>
+        <div id="completedTasks">Done: 0</div>
+        <div id="remainingTasks">Left: 0</div>
+        </div>
 
+        <div id="filters">
+        <button onclick="setFilter('all')">All</button>
+        <button onclick="setFilter('active')">Active</button>
+        <button onclick="setFilter('completed')">Completed</button>
+        </div>
+
+        <input type="text" id="addSkill" placeholder="Enter a skill...">
+        <button onclick="addSkill()">Add</button>
+
+        <ul id="skillList"></ul>
+    </div>
+    
     <script src="script.js"></script>
+
 </body>
 
 </html>
