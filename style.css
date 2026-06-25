@@ -110,6 +110,23 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+#stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 25px 0;
+}
+
+#stats div {
+    background: white;
+    width: 120px;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -120,4 +137,4 @@ input[type="checkbox"] {
         opacity: 1;
         transform: translateY(0);
     }
-}
+}   
