@@ -24,6 +24,16 @@
         <button onclick="setFilter('completed')">Completed</button>
         </div>
 
+        <label for="sortTasks">Sort by:</label>
+
+        <select id="sortTasks" onchange="renderTasks()">
+            <option value="default">Default</option>
+            <option value="priorityHigh">Priority (High → Low)</option>
+            <option value="priorityLow">Priority (Low → High)</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+        </select>
+        
         <input type="text" id="searchSkill" placeholder="Search..." oninput="renderTasks()">
 
         <select id="priority">
