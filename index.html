@@ -25,6 +25,13 @@
         </div>
 
         <input type="text" id="searchSkill" placeholder="Search..." oninput="renderTasks()">
+
+        <select id="priority">
+            <option value="High">🔴 High</option>
+            <option value="Medium" selected>🟡 Medium</option>
+            <option value="Low">🟢 Low</option>
+        </select>
+        
         <input type="text" id="addSkill" placeholder="Enter a skill...">
         <button onclick="addSkill()">Add</button>
 
