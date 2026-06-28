@@ -78,6 +78,7 @@ function renderTasks()
     let searchTask = document.getElementById("searchSkill");
     let searchText = searchTask.value.trim().toLowerCase();
     let filteredTasks = tasks;
+    let sortOption = document.getElementById("sortTasks").value;
 
     if(currentFilter === "completed")
     {
@@ -90,11 +91,43 @@ function renderTasks()
     }
 
     if(searchText != "")
-    {
+    {   
         filteredTasks = filteredTasks.filter(task => task.title.toLowerCase().includes(searchText));
     }
 
+    if (sortOption === "az")
+    {
+        filteredTasks.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    else if (sortOption === "za")
+    {
+        filteredTasks.sort((a, b) => b.title.localeCompare(a.title));
+    }
     
+    else if (sortOption === "priorityHigh")
+    {
+        const priorityOrder =
+        {
+            High: 3,
+            Medium: 2,
+            Low: 1
+        };
+
+        filteredTasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+    }
+
+    else if (sortOption === "priorityLow")
+    {
+        const priorityOrder =
+        {
+            High: 3,
+            Medium: 2,
+            Low: 1
+        };
+
+        filteredTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    }
 
     let list = document.getElementById("skillList")
     list.innerHTML = "";
