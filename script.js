@@ -17,10 +17,13 @@ function addSkill()
     let input = document.getElementById("addSkill");
     let skill = input.value.trim();
 
+    let priorityInput = document.getElementById("priority");
+    let priority = priorityInput.value;
+
     if(skill == "")
         return;
 
-    tasks.push({id: Date.now(), title: skill, completed: false});
+    tasks.push({id: Date.now(), title: skill, completed: false, priority: priority});
     input.value = "";
 
     saveTasks();
@@ -85,7 +88,7 @@ function renderTasks()
     {
         filteredTasks = tasks.filter(task => !task.completed);
     }
-    
+
     if(searchText != "")
     {
         filteredTasks = filteredTasks.filter(task => task.title.toLowerCase().includes(searchText));
@@ -114,6 +117,13 @@ function renderTasks()
         let taskText = document.createElement("span");
         taskText.textContent = task.title;
 
+        let priority = document.createElement("span");
+        let taskPriority = task.priority || "Medium";
+
+        priority.textContent = taskPriority;
+        priority.classList.add("priority");
+        priority.classList.add(taskPriority.toLowerCase());
+
         if(task.completed)
         {
             taskText.style.textDecoration = "line-through";
@@ -126,6 +136,7 @@ function renderTasks()
 
         li.appendChild(checkbox);
         li.appendChild(taskText);
+        li.appendChild(priority);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
 
