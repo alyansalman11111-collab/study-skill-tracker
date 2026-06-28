@@ -11,7 +11,7 @@
 
     <div class="container">
         <h1>📚 Study Skill Tracker</h1>
-
+        
         <div id="stats">
         <div id="totalTasks">Total: 0</div>
         <div id="completedTasks">Done: 0</div>
@@ -24,6 +24,7 @@
         <button onclick="setFilter('completed')">Completed</button>
         </div>
 
+        <input type="text" id="searchSkill" placeholder="Search..." oninput="renderTasks()">
         <input type="text" id="addSkill" placeholder="Enter a skill...">
         <button onclick="addSkill()">Add</button>
 
