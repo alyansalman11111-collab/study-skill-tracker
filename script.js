@@ -1,3 +1,5 @@
+console.log("SCRIPT LOADED");
+
 let tasks = [];
 let currentFilter = "all";
 
@@ -67,10 +69,18 @@ function updateStats()
     let total = tasks.length;
     let completed = tasks.filter(task => task.completed).length;
     let remaining = total - completed;
+    let percentage = 0;
+
+    if (total > 0)
+    {
+        percentage = (completed / total) * 100;
+    }
 
     document.getElementById("totalTasks").textContent = "Total: " + total;
     document.getElementById("completedTasks").textContent = "Done: " + completed;
     document.getElementById("remainingTasks").textContent = "Left: " + remaining;
+    document.getElementById("progressBar").style.width = percentage + "%";
+    document.getElementById("progressText").textContent = Math.round(percentage) + "% Completed";
 }
 
 function renderTasks()
@@ -178,6 +188,24 @@ function renderTasks()
     )
 }
 
+function toggleTheme()
+{
+    document.body.classList.toggle("dark");
+
+    let button = document.getElementById("themeToggle");
+
+    if(document.body.classList.contains("dark"))
+    {
+        button.textContent = "☀️ Light Mode";
+        localStorage.setItem("theme", "dark");
+    }
+    else
+    {
+        button.textContent = "🌙 Dark Mode";
+        localStorage.setItem("theme", "light");
+    }
+}
+
 let savedTasks = localStorage.getItem("tasks");
 
 if(savedTasks)
@@ -185,3 +213,11 @@ if(savedTasks)
 
 renderTasks();
 updateStats();
+
+let savedTheme = localStorage.getItem("theme");
+
+if(savedTheme === "dark")
+{
+    document.body.classList.add("dark");
+    document.getElementById("themeToggle").textContent = "☀️ Light Mode";
+}
